@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'color.dart'; // Custom colors
-import 'login.dart'; // Login page
+import 'package:http/http.dart' as http;
+import 'dart:convert'; 
+import 'color.dart'; 
+import 'login.dart'; 
 import 'constants.dart';
 import 'album.dart';
 
@@ -37,17 +39,36 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   // List of user names
-  final List<String> users = [
-    'Manovithan',
-    'Milan',
-    'Lena ',
-    'Nelson',
-    'Lee',
-    'Bell',
-    'Jayson ',
-    'Jake',
-    'Analia',
-  ];
+  List<String> users = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
+  }
+
+  Future<void> fetchUsers() async {
+    const String apiUrl = 'https://jsonplaceholder.typicode.com/users';
+
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        setState(() {
+          users = data.take(10).map<String>((user) => user['name']).toList();
+          isLoading = false;
+        });
+      } else {
+        throw Exception('Failed to load users');
+      }
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      print('Error fetching users: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +76,11 @@ class _UserPageState extends State<UserPage> {
       body: Column(
         children: [
           buildCustomAppBar(context),
-          Expanded(child: _buildUserList())
+          Expanded(
+            child: isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : _buildUserList(),
+          ),
         ],
       ),
     );
@@ -65,22 +90,22 @@ class _UserPageState extends State<UserPage> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       decoration: const BoxDecoration(
-        color: appBar, // Background color
+        color: appBar, 
         boxShadow: [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 4,
-            offset: Offset(0, 2), // Shadow under the app bar
+            offset: Offset(0, 2), 
           ),
         ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Logout Button on the Left
+          
           GestureDetector(
             onTap: () {
-              // Navigate to login page
+              
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const Login_page()),
@@ -103,7 +128,7 @@ class _UserPageState extends State<UserPage> {
             ),
           ),
 
-          // Title in the Center
+          
           const Text(
             'Users',
             style: TextStyle(
@@ -113,10 +138,10 @@ class _UserPageState extends State<UserPage> {
             ),
           ),
 
-          // User Profile Icon with Text on the Right
+          
           const Row(
             children: [
-              SizedBox(width: 10), // Space between icon and text
+              SizedBox(width: 10), 
               Text(
                 'User',
                 style: TextStyle(
@@ -131,7 +156,6 @@ class _UserPageState extends State<UserPage> {
                 Icons.account_circle,
                 color: Colors.black,
                 size: 28,
-                weight: 10,
               ),
             ],
           ),
@@ -140,7 +164,6 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
-  // User List widget
   Widget _buildUserList() {
     return ListView.builder(
       padding: const EdgeInsets.all(10),
@@ -161,11 +184,11 @@ class _UserPageState extends State<UserPage> {
               ),
             ),
             onTap: () {
-              // Navigate to the album page
+    
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  Albumpage(userName: users[index]),
+                  builder: (context) => AlbumPage(userName: users[index]),
                 ),
               );
             },
@@ -175,4 +198,3 @@ class _UserPageState extends State<UserPage> {
     );
   }
 }
-

@@ -11,11 +11,40 @@ class Login_page extends StatefulWidget {
 }
 
 class _Login_pageState extends State<Login_page> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _validateLogin() {
+    String username = _usernameController.text.trim();
+    String password = _passwordController.text.trim();
+
+    if (username == "admin" && password == "admin") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => UsersPage()),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Login Failed"),
+          content: Text("Invalid username or password."),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("OK"),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    print(height * 0.50);
     double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -28,7 +57,7 @@ class _Login_pageState extends State<Login_page> {
           ),
         ),
         centerTitle: true,
-        backgroundColor:appBar,
+        backgroundColor: appBar,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -69,13 +98,15 @@ class _Login_pageState extends State<Login_page> {
                       primaryColor.withOpacity(0.5)
                     ],
                   ),
-                  border: Border(left: BorderSide(color: primaryColor, width: 5)),
+                  border: Border(
+                      left: BorderSide(color: primaryColor, width: 5)),
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
+                controller: _usernameController,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -94,6 +125,7 @@ class _Login_pageState extends State<Login_page> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
               child: TextField(
+                controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
@@ -115,22 +147,19 @@ class _Login_pageState extends State<Login_page> {
                 height: height * 0.08,
                 width: width - 30,
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => UsersPage()));
-                  },
+                  onPressed: _validateLogin,
                   style: TextButton.styleFrom(
-                    backgroundColor: primaryColor, // Set button background color
+                    backgroundColor: primaryColor, 
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
-                          Radius.circular(30)), // Rounded corners
+                          Radius.circular(30)), 
                     ),
                   ),
                   child: Text(
                     loginbutton,
                     style: TextStyle(
-                      color: Colors.black, // Text color
-                      fontSize: 25, // Text size
+                      color: Colors.black, 
+                      fontSize: 25, 
                       fontWeight: FontWeight.bold,
                     ),
                   ),
