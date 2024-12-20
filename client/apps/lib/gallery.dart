@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:apps/gallery.dart';
-import 'login.dart'; 
+import 'login.dart';
 import 'color.dart';
 
 class AlbumPage extends StatelessWidget {
@@ -157,7 +157,8 @@ class AlbumPage extends StatelessWidget {
             const SizedBox(width: 5),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade300,
                   borderRadius: BorderRadius.circular(50),
@@ -187,7 +188,8 @@ class GalleryPage extends StatelessWidget {
   final String title;
   final String userName;
 
-  const GalleryPage({Key? key, required this.title, required this.userName}) : super(key: key);
+  const GalleryPage({Key? key, required this.title, required this.userName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -251,7 +253,8 @@ class GalleryPage extends StatelessWidget {
             Center(
               child: Text(
                 'Gallery for $title',
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 20),
