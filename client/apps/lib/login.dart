@@ -98,8 +98,8 @@ class _Login_pageState extends State<Login_page> {
                       primaryColor.withOpacity(0.5)
                     ],
                   ),
-                  border: Border(
-                      left: BorderSide(color: primaryColor, width: 5)),
+                  border:
+                      Border(left: BorderSide(color: primaryColor, width: 5)),
                 ),
               ),
             ),
@@ -123,7 +123,8 @@ class _Login_pageState extends State<Login_page> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
               child: TextField(
                 controller: _passwordController,
                 obscureText: true,
@@ -149,17 +150,16 @@ class _Login_pageState extends State<Login_page> {
                 child: TextButton(
                   onPressed: _validateLogin,
                   style: TextButton.styleFrom(
-                    backgroundColor: primaryColor, 
+                    backgroundColor: primaryColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(30)), 
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                   ),
                   child: Text(
                     loginbutton,
                     style: TextStyle(
-                      color: Colors.black, 
-                      fontSize: 25, 
+                      color: Colors.black,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

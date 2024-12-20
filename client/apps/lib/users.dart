@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert'; 
-import 'color.dart'; 
-import 'login.dart'; 
+import 'dart:convert';
+import 'color.dart';
+import 'login.dart';
 import 'constants.dart';
 import 'album.dart';
-
-void main() {
-  runApp(const UsersPage());
-}
 
 class UsersPage extends StatelessWidget {
   const UsersPage({super.key});
@@ -90,22 +86,20 @@ class _UserPageState extends State<UserPage> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       decoration: const BoxDecoration(
-        color: appBar, 
+        color: appBar,
         boxShadow: [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 4,
-            offset: Offset(0, 2), 
+            offset: Offset(0, 2),
           ),
         ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          
           GestureDetector(
             onTap: () {
-              
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const Login_page()),
@@ -127,8 +121,6 @@ class _UserPageState extends State<UserPage> {
               ),
             ),
           ),
-
-          
           const Text(
             'Users',
             style: TextStyle(
@@ -137,11 +129,9 @@ class _UserPageState extends State<UserPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-
-          
           const Row(
             children: [
-              SizedBox(width: 10), 
+              SizedBox(width: 10),
               Text(
                 'User',
                 style: TextStyle(
@@ -184,7 +174,6 @@ class _UserPageState extends State<UserPage> {
               ),
             ),
             onTap: () {
-    
               Navigator.push(
                 context,
                 MaterialPageRoute(
