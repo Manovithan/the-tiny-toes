@@ -1,14 +1,38 @@
+import 'package:apps/gallery2.dart';
+import 'package:apps/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
 import 'color.dart';
 
-class GalleryPage extends StatelessWidget {
+class GalleryPage extends StatefulWidget {
+  
   final String title;
   final String userName;
 
   const GalleryPage({Key? key, required this.title, required this.userName})
       : super(key: key);
 
+  @override
+  State<GalleryPage> createState() => _GalleryPageState();
+}
+
+class _GalleryPageState extends State<GalleryPage> {
+  String? username;
+
+  @override
+  void initState() {
+    fetchfunction();
+
+    super.initState();
+  }
+
+  fetchfunction() async {
+    username = await StorageService().getUsername();
+    print("aaaaaaaa${username}");
+    setState(() {
+      username = username;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     Widget buildCustomAppBar(BuildContext context) {
@@ -52,18 +76,18 @@ class GalleryPage extends StatelessWidget {
               ),
             ),
             const Text(
-              'Users',
+              'Gallery',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const Row(
+             Row(
               children: [
                 SizedBox(width: 10),
                 Text(
-                  'User',
+                  username??'user',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
@@ -91,7 +115,7 @@ class GalleryPage extends StatelessWidget {
           buildCustomAppBar(context),
           Center(
             child: Text(
-              ' $title',
+              ' ${widget.title}',
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
@@ -105,28 +129,36 @@ class GalleryPage extends StatelessWidget {
               ),
               itemCount: 9,
               itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        color: Colors.blue[100],
-                        borderRadius: BorderRadius.circular(8),
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GalleryApp()),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.blue[100],
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(Icons.image, color: Colors.blue),
                       ),
-                      child: const Icon(Icons.image, color: Colors.blue),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      index % 2 == 0
-                          ? 'accusamus'
-                          : index % 3 == 0
-                              ? 'officia'
-                              : 'reprehens',
-                      style: const TextStyle(fontSize: 12),
-                      textAlign: TextAlign.center,
-                    )
-                  ],
+                      const SizedBox(height: 5),
+                      Text(
+                        index % 2 == 0
+                            ? 'accusamus'
+                            : index % 3 == 0
+                                ? 'officia'
+                                : 'reprehens',
+                        style: const TextStyle(fontSize: 12),
+                        textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
                 );
               },
             ),
