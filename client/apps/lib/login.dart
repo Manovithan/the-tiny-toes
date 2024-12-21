@@ -20,7 +20,7 @@ class _Login_pageState extends State<Login_page> {
     String username = _usernameController.text.trim();
     String password = _passwordController.text.trim();
 
-    // Access AuthProvider
+    
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     if (authProvider.login(username, password)) {
@@ -63,6 +63,8 @@ class _Login_pageState extends State<Login_page> {
         ),
         centerTitle: true,
         backgroundColor: appBar,
+        automaticallyImplyLeading: false,
+
       ),
       body: SingleChildScrollView(
         child: Column(

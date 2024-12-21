@@ -19,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkLoginStatus() async {
+    await Future.delayed(const Duration(seconds: 5));
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     await authProvider.checkLoginStatus();
 
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(builder: (context) => UsersPage()),
       );
     } else {
-      // Redirect to LoginPage if not logged in
+      
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => Login_page()),

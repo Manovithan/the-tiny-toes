@@ -1,5 +1,8 @@
+import 'package:apps/auth_provider.dart';
+import 'package:apps/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'color.dart';
 import 'login.dart';
@@ -33,13 +36,24 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+   String? username;
+
+
   List<String> users = [];
   bool isLoading = true;
 
   @override
   void initState() {
+    fetchfunction();
     super.initState();
     fetchUsers();
+  }
+  fetchfunction() async {
+    username = await StorageService().getUsername();
+    print("aaaaaaaa${username}");
+    setState(() {
+      username = username;
+    });
   }
 
   Future<void> fetchUsers() async {
@@ -97,7 +111,9 @@ class _UserPageState extends State<UserPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () {
+            onTap: () async {
+              final authProvider = Provider.of<AuthProvider>(context, listen: false);
+     authProvider.logout();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const Login_page()),
@@ -127,11 +143,11 @@ class _UserPageState extends State<UserPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const Row(
+           Row(
             children: [
               SizedBox(width: 10),
               Text(
-                'User',
+                username??'user',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,
