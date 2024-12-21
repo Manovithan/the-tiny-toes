@@ -19,12 +19,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkLoginStatus() async {
-  
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     await authProvider.checkLoginStatus();
 
     if (authProvider.loggedInUsername != null) {
-      
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => UsersPage()),
@@ -47,9 +45,9 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'asset/login_bg2.jpg', // Replace with your logo file in assets
-              width: 150,
-              height: 150,
+              'asset/login_bg2.jpg',
+              width: 250,
+              height: 250,
             ),
             const SizedBox(height: 20),
             const Text(
@@ -57,11 +55,11 @@ class _SplashScreenState extends State<SplashScreen> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Schyler', // Replace with your desired font
+                fontFamily: 'Schyler',
               ),
             ),
             const SizedBox(height: 20),
-            const CircularProgressIndicator(), 
+            const CircularProgressIndicator(),
           ],
         ),
       ),
