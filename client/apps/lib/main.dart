@@ -1,8 +1,10 @@
 import 'package:apps/auth_provider.dart';
+import 'package:apps/splashcreen.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'login.dart';
 import 'package:provider/provider.dart';
+
 
 void main() {
   runApp(
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Login_page (),
+      home: SplashScreen (),
     );
   }
 }
