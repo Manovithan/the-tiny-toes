@@ -1,7 +1,9 @@
-import 'package:apps/color.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'package:provider/provider.dart';
+import 'auth_provider.dart';
 import 'users.dart';
+import 'constants.dart';
+import 'package:apps/color.dart';
 
 class Login_page extends StatefulWidget {
   const Login_page({super.key});
@@ -14,12 +16,15 @@ class _Login_pageState extends State<Login_page> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _validateLogin() {
+  void _validateLogin(BuildContext context) {
     String username = _usernameController.text.trim();
     String password = _passwordController.text.trim();
 
-    if (username == "admin" && password == "admin") {
-      Navigator.push(
+    // Access AuthProvider
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    if (authProvider.login(username, password)) {
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => UsersPage()),
       );
@@ -27,12 +32,12 @@ class _Login_pageState extends State<Login_page> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Login Failed"),
-          content: Text("Invalid username or password."),
+          title: const Text("Login Failed"),
+          content: const Text("Invalid username or password."),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("OK"),
+              child: const Text("OK"),
             ),
           ],
         ),
@@ -48,7 +53,7 @@ class _Login_pageState extends State<Login_page> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           appName,
           style: TextStyle(
             fontSize: 40,
@@ -89,7 +94,8 @@ class _Login_pageState extends State<Login_page> {
               child: Container(
                 child: Text(
                   " $loginString ",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 30),
                 ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -98,8 +104,9 @@ class _Login_pageState extends State<Login_page> {
                       primaryColor.withOpacity(0.5)
                     ],
                   ),
-                  border:
-                      Border(left: BorderSide(color: primaryColor, width: 5)),
+                  border: Border(
+                    left: BorderSide(color: primaryColor, width: 5),
+                  ),
                 ),
               ),
             ),
@@ -108,17 +115,18 @@ class _Login_pageState extends State<Login_page> {
               child: TextField(
                 controller: _usernameController,
                 decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: primaryColor,
                     ),
                   ),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
                   ),
-                  prefixIcon: Icon(Icons.person, color: icons),
+                  prefixIcon: const Icon(Icons.person, color: icons),
                   labelText: "Username",
-                  labelStyle: TextStyle(color: primaryColor, fontSize: 20),
+                  labelStyle:
+                      const TextStyle(color: primaryColor, fontSize: 20),
                 ),
               ),
             ),
@@ -129,17 +137,18 @@ class _Login_pageState extends State<Login_page> {
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: primaryColor,
                     ),
                   ),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: primaryColor),
                   ),
-                  prefixIcon: Icon(Icons.lock_open, color: icons),
+                  prefixIcon: const Icon(Icons.lock_open, color: icons),
                   labelText: "Password",
-                  labelStyle: TextStyle(color: primaryColor, fontSize: 20),
+                  labelStyle:
+                      const TextStyle(color: primaryColor, fontSize: 20),
                 ),
               ),
             ),
@@ -148,16 +157,16 @@ class _Login_pageState extends State<Login_page> {
                 height: height * 0.08,
                 width: width - 30,
                 child: TextButton(
-                  onPressed: _validateLogin,
+                  onPressed: () => _validateLogin(context),
                   style: TextButton.styleFrom(
                     backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                   ),
                   child: Text(
                     loginbutton,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 25,
                       fontWeight: FontWeight.bold,

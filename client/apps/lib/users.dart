@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'color.dart';
 import 'login.dart';
-import 'constants.dart';
 import 'album.dart';
 
 class UsersPage extends StatelessWidget {
@@ -34,7 +33,6 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  // List of user names
   List<String> users = [];
   bool isLoading = true;
 
@@ -100,7 +98,7 @@ class _UserPageState extends State<UserPage> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const Login_page()),
               );

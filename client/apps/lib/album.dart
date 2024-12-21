@@ -1,11 +1,34 @@
+import 'package:apps/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:apps/gallery.dart';
 import 'login.dart';
 import 'color.dart';
 
-class AlbumPage extends StatelessWidget {
+class AlbumPage extends StatefulWidget {
   final String userName;
   const AlbumPage({super.key, required this.userName});
+
+  @override
+  State<AlbumPage> createState() => _AlbumPageState();
+}
+
+class _AlbumPageState extends State<AlbumPage> {
+  String? username;
+
+  @override
+  void initState() {
+    fetchfunction();
+
+    super.initState();
+  }
+
+  fetchfunction() async {
+    username = await StorageService().getUsername();
+    print("aaaaaaaa${username}");
+    setState(() {
+      username = username;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +44,7 @@ class AlbumPage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 10),
                   Text(
-                    '$userName\'s Albums',
+                    '${widget.userName}\'s Albums',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
@@ -66,9 +89,10 @@ class AlbumPage extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pushReplacement(
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Login_page()),
+                (route) => false,
               );
             },
             child: Container(
@@ -98,7 +122,7 @@ class AlbumPage extends StatelessWidget {
           Row(
             children: [
               Text(
-                userName,
+                username ?? 'user',
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
@@ -123,7 +147,8 @@ class AlbumPage extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => GalleryPage(title: title, userName: userName),
+            builder: (context) =>
+                GalleryPage(title: title, userName: widget.userName),
           ),
         );
       },

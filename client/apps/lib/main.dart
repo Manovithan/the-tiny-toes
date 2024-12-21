@@ -1,25 +1,27 @@
+import 'package:apps/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'login.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(InitialScreen());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+  
+      ],
+      child: MyApp (),
+    ),
+  );
 }
-
-class InitialScreen extends StatefulWidget {
-  const InitialScreen({super.key});
-
-  @override
-  State<InitialScreen> createState() => _InitialScreenState();
-}
-
-class _InitialScreenState extends State<InitialScreen> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Login_page(),
-      title: appName,
-      debugShowCheckedModeBanner: false,
+      home: Login_page (),
     );
   }
 }
+
+
