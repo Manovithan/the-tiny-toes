@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkLoginStatus() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 6));
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     await authProvider.checkLoginStatus();
 
@@ -29,7 +29,6 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(builder: (context) => UsersPage()),
       );
     } else {
-      
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => Login_page()),
@@ -46,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'asset/login_bg2.jpg',
+              'asset/dp2_bg.jpg',
               width: 250,
               height: 250,
             ),

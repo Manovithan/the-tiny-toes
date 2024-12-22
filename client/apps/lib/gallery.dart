@@ -53,9 +53,10 @@ class _GalleryPageState extends State<GalleryPage> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.push(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const Login_page()),
+                  (route) => false,
                 );
               },
               child: Container(
@@ -139,8 +140,8 @@ class _GalleryPageState extends State<GalleryPage> {
                   child: Column(
                     children: [
                       Container(
-                        height: 60,
-                        width: 60,
+                        height: 70,
+                        width: 70,
                         decoration: BoxDecoration(
                           color: Colors.blue[100],
                           borderRadius: BorderRadius.circular(8),
@@ -154,7 +155,7 @@ class _GalleryPageState extends State<GalleryPage> {
                             : index % 3 == 0
                                 ? 'officia'
                                 : 'reprehens',
-                        style: const TextStyle(fontSize: 12),
+                        style: const TextStyle(fontSize: 16),
                         textAlign: TextAlign.center,
                       )
                     ],

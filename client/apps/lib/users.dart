@@ -114,9 +114,10 @@ class _UserPageState extends State<UserPage> {
             onTap: () async {
               final authProvider = Provider.of<AuthProvider>(context, listen: false);
      authProvider.logout();
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Login_page()),
+                (route) => false,
               );
             },
             child: Container(
