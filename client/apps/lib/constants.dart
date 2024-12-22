@@ -4,3 +4,4 @@ const String loginString = "LOGIN";
 const String loginbutton = "Login to account";
 const String userpage = "Users";
 const String logoutbuttin = "Logout";
+const String backbutton = "<";

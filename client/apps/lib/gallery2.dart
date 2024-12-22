@@ -60,7 +60,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Login_page()),
-                (Route)=>false,
+                (Route) => false,
               );
             },
             child: Container(
@@ -140,11 +140,11 @@ class _GalleryScreenState extends State<GalleryScreen> {
             ),
           ),
           const SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -152,7 +152,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                       'Artist',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -170,7 +170,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
                       'Album',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
