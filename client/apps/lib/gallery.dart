@@ -5,7 +5,6 @@ import 'login.dart';
 import 'color.dart';
 
 class GalleryPage extends StatefulWidget {
-  
   final String title;
   final String userName;
 
@@ -33,6 +32,7 @@ class _GalleryPageState extends State<GalleryPage> {
       username = username;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     Widget buildCustomAppBar(BuildContext context) {
@@ -84,20 +84,20 @@ class _GalleryPageState extends State<GalleryPage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-             Row(
+            Row(
               children: [
                 SizedBox(width: 10),
                 Text(
-                  username??'user',
-                  style: TextStyle(
+                  username ?? 'user',
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 2,
                 ),
-                Icon(
+                const Icon(
                   Icons.account_circle,
                   color: Colors.black,
                   size: 28,
